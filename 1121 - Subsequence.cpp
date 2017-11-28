@@ -18,6 +18,9 @@
 #define SZ(a)           int(a.size())
 #define open()          freopen("input.txt", "r", stdin)
 #define show()          freopen("output.txt", "w", stdout)
+#define take(args...)   asdf,args
+#define dump(x)         cerr<<#x<<" = "<<x<<endl
+#define debug(args...)  cerr,args; cerr<<endl;
 #define vci             vector<int>
 #define vcc             vector<char>
 #define vcs             vector<string>
@@ -31,45 +34,67 @@
 #define BOUNDARY(i, j)  ((i >= 0 && i < w) && (j >= 0 && j < h))
 #define Mx 100009
 #define sq(x) ((x)*(x))
+#define sq_dist(a,b)    (sqrt(sq(a.x-b.x)+sq(a.y-b.y)));
 using namespace std;
-int k=6;
-int n[100];
-int sol[100];
-bool used[100];
-void back_track(int N,int SZ)
-{
-    if(N==k)
-    {
-        sort(n,n+N);
-        for(int i=0;i<k;i++)
-            printf("%d ",sol[i]);
-        printf("\n");
-    }
-    int lst=n[SZ];
-    for(int i=0;i<SZ;i++)
-    {
-        if(!used[i]){
-            if(lst!=n[i]){
-            lst=n[i];
-            used[i]=true;
-            sol[N]=n[i];
-            back_track(N+1,SZ);
-            used[i]=false;
-        }
-    }
-    }
 
-}
 int main()
 {
-    int N;
-    while(cin>>N && N)
-    {
-        for(int i=0;i<N;i++)
-        {
-            cin>>n[i];
-        }
+	ll s,n,seq[100000+5];
+	while(readI2(n,s)==2)
+	{
+		for(ll i=0;i<n;i++)
+		{
+			readI1(seq[i]);
+		}
+		ll high=0,low=0,sum=0,ans=n+2;
+		while(high<=n)
+		{
+			if(sum>=s){
+				ans=min(ans,high-low);
+			}
+			if(sum>=s && low<high)
+			{
+				sum-=seq[low];
+				//cout<<"lsum: "<<sum<<endl;
+				low++;
+			}
+			else
+			{
+				sum+=seq[high];
+				//cout<<"hsum: "<<sum<<endl;
+				high++;
+			}
 
-        back_track(0,N);
-    }
+
+		}
+		if(ans==n+2) ans=0;
+
+		printf("%lld\n",ans);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

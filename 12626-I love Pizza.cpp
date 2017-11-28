@@ -18,58 +18,50 @@
 #define SZ(a)           int(a.size())
 #define open()          freopen("input.txt", "r", stdin)
 #define show()          freopen("output.txt", "w", stdout)
+#define take(args...)   asdf,args
+#define dump(x)         cerr<<#x<<" = "<<x<<endl
+#define debug(args...)  cerr,args; cerr<<endl;
 #define vci             vector<int>
 #define vcc             vector<char>
 #define vcs             vector<string>
 #define read(a)         scanf("%d",&a)
 #define read2(a,b)      scanf("%d%d",&a,&b)
 #define read3(a,b,c)    scanf("%d%d%d",&a,&b,&c)
-#define readI1(a)       scanf("%lld",&a)
-#define readI2(a,b)     scanf("%lld %lld",&a,&b)
-#define readI3(a,b,c)   scanf("%lld %lld %lld",&a,&b,&c)
-#define readI4(a,b,c,d) scanf("%lld %lld %lld %lld",&a,&b,&c,&d)
+#define readI1(a)       scanf("%I64d",&a)
+#define readI2(a,b)     scanf("%I64d %I64d",&a,&b)
+#define readI3(a,b,c,d) scanf("%I64d %I64d %I64d %I64d",&a,&b,&c,&d)
+#define MX              1000008
+#define prec_error      10e-9
 #define BOUNDARY(i, j)  ((i >= 0 && i < w) && (j >= 0 && j < h))
-#define Mx 100009
-#define sq(x) ((x)*(x))
 using namespace std;
-int k=6;
-int n[100];
-int sol[100];
-bool used[100];
-void back_track(int N,int SZ)
-{
-    if(N==k)
-    {
-        sort(n,n+N);
-        for(int i=0;i<k;i++)
-            printf("%d ",sol[i]);
-        printf("\n");
-    }
-    int lst=n[SZ];
-    for(int i=0;i<SZ;i++)
-    {
-        if(!used[i]){
-            if(lst!=n[i]){
-            lst=n[i];
-            used[i]=true;
-            sol[N]=n[i];
-            back_track(N+1,SZ);
-            used[i]=false;
-        }
-    }
-    }
-
-}
+int kdx[]={-1,-1,-1,0,0,1,1,1};
+int kdy[]={-1,0,1,-1,1,-1,0,1};
+int dx[]={0, 1, 0, -1};
+int dy[]={-1, 0, 1, 0};
 int main()
 {
-    int N;
-    while(cin>>N && N)
-    {
-        for(int i=0;i<N;i++)
-        {
-            cin>>n[i];
-        }
-
-        back_track(0,N);
-    }
+	int tc,cas=1;
+	scanf("%d",&tc);
+	while(tc--)
+	{
+		string s;
+		cin>>s;
+		ll ln=s.length(),m=0,a=0,r=0,g=0,i=0,t=0,ans;
+		for (int j = 0; j < ln; ++j)
+		{
+			if(s[j]=='M') m++;
+			if(s[j]=='A') a++;
+			if(s[j]=='R') r++;
+			if(s[j]=='G') g++;
+			if(s[j]=='I') i++;
+			if(s[j]=='T') t++;
+		}
+		a=a/3,r=r/2;
+		if(m>=1 && a>=1 && r>=1 && g>=1 && i>=1 && t>=1){
+			ans=min(m,min(a,min(r,min(g,min(i,t)))));
+		}
+		else ans=0;
+		cout<<ans<<endl;
+	}
+	return 0;
 }

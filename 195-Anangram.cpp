@@ -32,44 +32,53 @@
 #define Mx 100009
 #define sq(x) ((x)*(x))
 using namespace std;
-int k=6;
-int n[100];
-int sol[100];
+char s[1000];
+char sol[1000];
 bool used[100];
-void back_track(int N,int SZ)
+bool cmp(char a, char b)
 {
-    if(N==k)
+        int delta = tolower(a) - tolower(b);
+        return delta ? delta < 0 : a <b;
+}
+void back_track(int n,int sz)
+{
+    if(n==sz)
     {
-        sort(n,n+N);
-        for(int i=0;i<k;i++)
-            printf("%d ",sol[i]);
+        for(int i=0;i<sz;i++)
+        {
+            printf("%c",sol[i]);
+        }
+
         printf("\n");
     }
-    int lst=n[SZ];
-    for(int i=0;i<SZ;i++)
+    char lst_ltr='\0';
+    for(int i=0;i<sz;i++)
     {
-        if(!used[i]){
-            if(lst!=n[i]){
-            lst=n[i];
-            used[i]=true;
-            sol[N]=n[i];
-            back_track(N+1,SZ);
-            used[i]=false;
+        if(!used[i])
+        {
+            if(s[i]!=lst_ltr)
+            {
+                used[i]=true;
+                lst_ltr=s[i];
+                sol[n]=s[i];
+                back_track(n+1,sz);
+                used[i]=false;
+            }
         }
     }
-    }
-
 }
+
 int main()
 {
-    int N;
-    while(cin>>N && N)
+    int t;
+    read(t);
+    while(t--)
     {
-        for(int i=0;i<N;i++)
-        {
-            cin>>n[i];
-        }
-
-        back_track(0,N);
+        scanf("%s",s);
+        int sz=strlen(s);
+        sort(s,s+sz,cmp);
+        mem(used,0);
+        back_track(0,sz);
     }
+    return 0;
 }

@@ -18,58 +18,51 @@
 #define SZ(a)           int(a.size())
 #define open()          freopen("input.txt", "r", stdin)
 #define show()          freopen("output.txt", "w", stdout)
+#define take(args...)   asdf,args
+#define dump(x)         cerr<<#x<<" = "<<x<<endl
+#define debug(args...)  cerr,args; cerr<<endl;
 #define vci             vector<int>
 #define vcc             vector<char>
 #define vcs             vector<string>
 #define read(a)         scanf("%d",&a)
 #define read2(a,b)      scanf("%d%d",&a,&b)
 #define read3(a,b,c)    scanf("%d%d%d",&a,&b,&c)
-#define readI1(a)       scanf("%lld",&a)
-#define readI2(a,b)     scanf("%lld %lld",&a,&b)
-#define readI3(a,b,c)   scanf("%lld %lld %lld",&a,&b,&c)
-#define readI4(a,b,c,d) scanf("%lld %lld %lld %lld",&a,&b,&c,&d)
+#define readI1(a)       scanf("%I64d",&a)
+#define readI2(a,b)     scanf("%I64d %I64d",&a,&b)
+#define readI3(a,b,c,d) scanf("%I64d %I64d %I64d %I64d",&a,&b,&c,&d)
+#define MX              1000008
+#define prec_error      10e-9
 #define BOUNDARY(i, j)  ((i >= 0 && i < w) && (j >= 0 && j < h))
-#define Mx 100009
-#define sq(x) ((x)*(x))
 using namespace std;
-int k=6;
-int n[100];
-int sol[100];
-bool used[100];
-void back_track(int N,int SZ)
-{
-    if(N==k)
-    {
-        sort(n,n+N);
-        for(int i=0;i<k;i++)
-            printf("%d ",sol[i]);
-        printf("\n");
-    }
-    int lst=n[SZ];
-    for(int i=0;i<SZ;i++)
-    {
-        if(!used[i]){
-            if(lst!=n[i]){
-            lst=n[i];
-            used[i]=true;
-            sol[N]=n[i];
-            back_track(N+1,SZ);
-            used[i]=false;
-        }
-    }
-    }
-
-}
 int main()
 {
-    int N;
-    while(cin>>N && N)
+    double a,b,c,area,s,t,v;
+    while(cin>>a>>b>>c)
     {
-        for(int i=0;i<N;i++)
-        {
-            cin>>n[i];
+        if((a+b+c)==0){
+            printf("The radius of the round table is: 0.000\n");
+            continue;
         }
-
-        back_track(0,N);
+        s=(a+b+c)/2;
+        area=sqrt(s*(s-a)*(s-b)*(s-c));
+        v=(2*area)/(a+b+c);
+        printf("The radius of the round table is: %.3lf\n",v);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

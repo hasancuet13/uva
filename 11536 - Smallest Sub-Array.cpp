@@ -18,6 +18,9 @@
 #define SZ(a)           int(a.size())
 #define open()          freopen("input.txt", "r", stdin)
 #define show()          freopen("output.txt", "w", stdout)
+#define take(args...)   asdf,args
+#define dump(x)         cerr<<#x<<" = "<<x<<endl
+#define debug(args...)  cerr,args; cerr<<endl;
 #define vci             vector<int>
 #define vcc             vector<char>
 #define vcs             vector<string>
@@ -31,45 +34,83 @@
 #define BOUNDARY(i, j)  ((i >= 0 && i < w) && (j >= 0 && j < h))
 #define Mx 100009
 #define sq(x) ((x)*(x))
+#define sq_dist(a,b)    (sqrt(sq(a.x-b.x)+sq(a.y-b.y)));
 using namespace std;
-int k=6;
-int n[100];
-int sol[100];
-bool used[100];
-void back_track(int N,int SZ)
-{
-    if(N==k)
-    {
-        sort(n,n+N);
-        for(int i=0;i<k;i++)
-            printf("%d ",sol[i]);
-        printf("\n");
-    }
-    int lst=n[SZ];
-    for(int i=0;i<SZ;i++)
-    {
-        if(!used[i]){
-            if(lst!=n[i]){
-            lst=n[i];
-            used[i]=true;
-            sol[N]=n[i];
-            back_track(N+1,SZ);
-            used[i]=false;
-        }
-    }
-    }
 
+int aran[1000001+5];
+int freq[105];
+bool ckr(int K)
+{
+	for(int i=1;i<=K;i++){
+		if(freq[i]<=0)
+		return false;
+	}
+	return true;
 }
 int main()
 {
-    int N;
-    while(cin>>N && N)
-    {
-        for(int i=0;i<N;i++)
-        {
-            cin>>n[i];
-        }
+	aran[0]=1;aran[1]=2;aran[2]=3;
+    int T,ca=1;
+    int N,M,K;
+	read(T);
+	while(T--)
+	{
+		read3(N,M,K);
+		for(int i=3;i<N;i++)
+		{
+			aran[i]=(aran[i-1]+aran[i-2]+aran[i-3])%M+1;
+		}
+		mem(freq,0);
 
-        back_track(0,N);
-    }
+		int hi=0,lo=0,Min=N+5;
+		freq[aran[hi]]++;
+		while(true)
+		{
+			  if(ckr(K))
+			  {
+				if((hi-lo+1)<Min)
+					Min=hi-lo+1;
+				if(aran[lo]<=K)
+				{
+					freq[aran[lo]]--;
+				}
+				lo++;
+			  }
+			  else
+			  {
+				hi++;
+				if(hi<N){
+					if(aran[hi]<=K)
+						freq[aran[hi]]++;
+				}
+				else break;
+			  }
+
+		}
+		if(Min==N+5)
+		  printf("Case %d: sequence nai\n",ca++);
+		else
+			printf("Case %d: %d\n",ca++,Min);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
